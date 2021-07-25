@@ -2,11 +2,15 @@
 
 ## Usage
 need to create a file and set variables in **.env** first.
+server will listen in port 4000
 ```
 $ cd Birthday-Greetings-Kata
 $ npm start
 ```
-server will listen in port 4000
+there is only test for api/v1 in branch main
+```
+$ npm test
+```
 
 ## branch
 use MongoDB in version1, 2, 3, 5 and mysql in version4.
