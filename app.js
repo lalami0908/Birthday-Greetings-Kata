@@ -75,4 +75,22 @@ app.get('/greeting/api/v3', async (req, res) => {
     })
 });
 
+app.get('/greeting/api/v5', async (req, res) => { 
+    let { today } = req.query;
+    let todayStr = getTodayStr(today);
+
+    await Member.find( { Date_of_Birth: { $regex: todayStr, $options: 'i' } }).then((members)=>{
+        let xml = 
+        // '<?xml version="1.0" encoding="utf-8"?>' +
+            '<root>';
+        members.forEach( member => { 
+            xml += '<title>Subject: Happy birthday!</title>'+
+                   '<content>Happy birthday, dear '+ member.First_Name + '!</content>';
+        });
+        xml += "</root>";
+        res.set('Content-Type', 'text/xml');
+        res.send(xml);
+    })
+});
+
 module.exports = app;
