@@ -14,15 +14,21 @@ function getTodayStr (today) {
     console.log(`query birthday: ${todayStr}`);
     return todayStr;
 };
+const { query } = require('./utils/mysql')
 
-app.get('/greeting/api/v2', async (req, res) => { 
+app.get('/greeting/api/v4', async (req, res) => { 
     let { today } = req.query;
     let todayStr = getTodayStr(today);
-
-    await Member.find( { Date_of_Birth: { $regex: todayStr, $options: 'i' } }).then((members)=>{
-        return res.json("test");
-       
-    })
+    
+    var greetingMsgs = [];
+    var sql = `SELECT * FROM members WHERE Date_of_Birth LIKE N'%${todayStr}%'`;
+    var members = await query(sql);
+    members.forEach( member => { 
+        let msg = { "title": "Subject: Happy birthday!", 
+                    "content": "Happy birthday, dear " + member.Last_Name+ ", " + member.First_Name +"!"}
+        greetingMsgs.push(msg);
+    });
+    return res.json(greetingMsgs);
 });
 
 module.exports = app;
