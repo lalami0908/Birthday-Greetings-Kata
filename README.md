@@ -10,6 +10,7 @@ server will listen in port 4000
 
 ## branch
 use MongoDB in version1, 2, 3, 5 and mysql in version4.
+change with the variable **DBIS_MONGO** in .env
 
 ### version
 - verson1:
