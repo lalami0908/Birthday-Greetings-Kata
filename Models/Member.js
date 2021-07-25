@@ -11,6 +11,12 @@ const MemberSchema = new Schema({
     Email: String,
 
 });
-
+MemberSchema.methods.birthdayAgeIsOver = function(age) {
+    var memberAge = new Date().getFullYear() - new Date(this.Date_of_Birth).getFullYear();
+    if(memberAge > age){
+        return true;
+    }
+    return false;
+};
 const Member = mongoose.model('Member', MemberSchema);
 module.exports = Member
