@@ -20,8 +20,24 @@ app.get('/greeting/api/v2', async (req, res) => {
     let todayStr = getTodayStr(today);
 
     await Member.find( { Date_of_Birth: { $regex: todayStr, $options: 'i' } }).then((members)=>{
-        return res.json("test");
-       
+      
+        var greetingMsgs = [];
+        members.forEach( member => { 
+            let msg = {};
+            if(member.Gender == "Male"){
+                msg = { "title": "Subject: Happy birthday!", 
+                        "content": "Happy birthday, dear " + member.First_Name +"!"+ "\n" +
+                                    "We offer special discount 20% off for the following items:"+ "\n" + 
+                                    "White Wine, iPhone X"}
+            } else {
+                msg = { "title": "Subject: Happy birthday!", 
+                "content": "Happy birthday, dear " + member.First_Name +"!"+ "\n" +
+                            "We offer special discount 50% off for the following items:"+ "\n" + 
+                            "Cosmetic, LV Handbags"}
+            } 
+            greetingMsgs.push(msg);
+        });
+        return res.json(greetingMsgs);
     })
 });
 
