@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URL, dbOptions) .then(res => {
     initMongoDB();
 })
 const conn = mongoose.connection;
-const Member = require('../Models/Member')
+const Member = mongoose.models.Member
 
 async function initMongoDB () {
     Member.deleteMany({}, () => {     
