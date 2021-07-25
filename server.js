@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const dailySchedule = ()=>{
-    var taskFreq = '1 * * * * *';
+    var taskFreq = '0 0 0 * * *';
     schedule.scheduleJob(taskFreq,()=>{
         request('http://localhost:4000/greeting/api/v1', { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }

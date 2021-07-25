@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha --timeout 5000"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/lalami0908/Birthday-Greetings-Kata#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
     "cors": "^2.8.5",
     "cron-parser": "^3.5.0",
     "dotenv-defaults": "^2.0.2",
@@ -27,6 +29,7 @@
     "mysql": "^2.18.1",
     "node-schedule": "^2.0.0",
     "nodemon": "^2.0.12",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "supertest": "^6.1.4"
   }
 }
