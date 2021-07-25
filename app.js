@@ -57,4 +57,22 @@ app.get('/greeting/api/v2', async (req, res) => {
     })
 });
 
+app.get('/greeting/api/v3', async (req, res) => { 
+    let { today } = req.query;
+    let todayStr = getTodayStr(today);
+
+    await Member.find( { Date_of_Birth: { $regex: todayStr, $options: 'i' } }).then((members)=>{
+        var greetingMsgs = [];
+        members.forEach( member => { 
+            let msg = { "title": "Subject: Happy birthday!", 
+                        "content": "Happy birthday, dear " + member.First_Name +"!"}
+            if(member.birthdayAgeIsOver(49)){
+                msg['imgUrl'] = `https://i.imgur.com/WFOiLGh.jpg`;
+            }
+            greetingMsgs.push(msg);
+        });
+        return res.json(greetingMsgs);
+    })
+});
+
 module.exports = app;
