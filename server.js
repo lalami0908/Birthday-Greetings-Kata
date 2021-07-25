@@ -4,7 +4,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv-defaults').config();
 
-const { conn } = require('./utils/mongoDB');
+if(process.env.DBIS_MONGO === 'true' ){
+    const { conn } = require('./utils/mongoDB');
+} else {
+    const { conn } = require('./utils/mysql');
+}
 
 app.use(cors())
 app.use(bodyParser.json());

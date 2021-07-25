@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URL, dbOptions) .then(res => {
     initMongoDB();
 })
 const conn = mongoose.connection;
-const Member = mongoose.models.Member
+const Member = require('../models/member')
 
 async function initMongoDB () {
 
