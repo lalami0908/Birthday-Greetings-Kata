@@ -15,13 +15,21 @@ function getTodayStr (today) {
     return todayStr;
 };
 
-app.get('/greeting/api/v2', async (req, res) => { 
+
+app.get('/greeting/api/v1', async (req, res) => { 
     let { today } = req.query;
     let todayStr = getTodayStr(today);
 
     await Member.find( { Date_of_Birth: { $regex: todayStr, $options: 'i' } }).then((members)=>{
-        return res.json("test");
-       
+
+        var greetingMsgs = [];
+        members.forEach( member => { 
+            let msg = { "title": "Subject: Happy birthday!", 
+                        "content": "Happy birthday, dear " + member.First_Name +"!"}
+            greetingMsgs.push(msg);
+        });
+        return res.json(greetingMsgs);
+
     })
 });
 

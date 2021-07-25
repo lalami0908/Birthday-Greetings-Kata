@@ -16,7 +16,7 @@ const conn = mongoose.connection;
 const Member = mongoose.models.Member
 
 async function initMongoDB () {
-    
+
     Member.deleteMany({}, () => {     
 
         var First_Names = [ "Robert", "Cid", "Miki", "Sherry", "Peter" ];
